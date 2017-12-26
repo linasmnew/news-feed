@@ -5,7 +5,7 @@ describe('history reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(
       {
-        active: null,
+        active: '',
         list: []
       }
     );
@@ -46,7 +46,7 @@ describe('history reducer', () => {
     };
     const expectedState = {
       list: [{ id: id2, keyword: 'test2', url: 'test2.com' }],
-      active: null
+      active: ''
     };
 
     expect(reducer(mockHistoryState, action)).toEqual(expectedState);
