@@ -16,7 +16,7 @@ describe('history reducer', () => {
 
     const mockHistoryState = {
       list: [],
-      active: null
+      active: ''
     };
     const action = {
       type: ADD_TO_HISTORY,
