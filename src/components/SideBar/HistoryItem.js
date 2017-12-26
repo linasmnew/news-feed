@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class HistoryItem extends React.Component {
   remove = (e) => {
@@ -27,6 +28,15 @@ class HistoryItem extends React.Component {
       </div>
     );
   }
+}
+
+HistoryItem.propTypes = {
+  item: PropTypes.shape({
+    keyword: PropTypes.string.isRequired,
+  }).isRequired,
+  active: PropTypes.bool.isRequired,
+  updateActive: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired
 }
 
 export default HistoryItem;

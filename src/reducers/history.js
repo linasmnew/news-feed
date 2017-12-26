@@ -1,6 +1,6 @@
 import { ADD_TO_HISTORY, REMOVE_FROM_HISTORY, UPDATE_ACTIVE } from '../actions/types';
 
-function history(state = { list: [], active: null }, action) {
+function history(state = { list: [], active: '' }, action) {
   switch (action.type) {
     case ADD_TO_HISTORY:
       return {
@@ -13,7 +13,7 @@ function history(state = { list: [], active: null }, action) {
       let newList = state.list.filter((item) => {
           return item.id !== action.payload;
         });
-      return { list: newList, active: null };
+      return { list: newList, active: '' };
 
     case UPDATE_ACTIVE:
       return { ...state, active: action.payload };

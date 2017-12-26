@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToHistory, removeFromHistory, updateActive } from '../../actions/';
-import History from './History';
+import HistoryList from './HistoryList';
 import apiKey from './apiKey';
 
 function formattedTodaysDate() {
@@ -60,21 +61,29 @@ class SideBar extends React.Component {
         <div className="formBottomDivider">
         </div>
 
-        <History
-          historyItems={this.props.feed_history}
+        <HistoryList
+          feed_history={this.props.feed_history}
           remove={this.remove}
           updateActive={this.updateActive}
-          active={this.props.active}
         />
       </div>
     );
   }
 }
 
+SideBar.propTypes = {
+  feed_history: PropTypes.shape({
+    list: PropTypes.array.isRequired,
+    active: PropTypes.string.isRequired
+  }).isRequired,
+  addToHistory: PropTypes.func.isRequired,
+  removeFromHistory: PropTypes.func.isRequired,
+  updateActive: PropTypes.func.isRequired
+};
+
 const mapStateToProps = (state) => {
   return {
-    feed_history: state.history.list,
-    active: state.history.active
+    feed_history: state.history
   };
 }
 

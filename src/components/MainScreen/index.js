@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Article from './Article';
+import PropTypes from 'prop-types';
+import ArticleList from './ArticleList';
 import { connect } from 'react-redux';
 import { updateActive } from '../../actions/';
 
@@ -18,11 +19,11 @@ class Home extends Component {
         - if found: fetch articles using items url
   */
   componentDidMount() {
-    if (this.props.list) {
+    if (this.props.feed_history.list) {
       // substring gets rid of leading '/'
       // item id's are generated using uuidv4 which are of length 36
       if (this.props.location.pathname.substring(1).length === 36) {
-        let foundItem = this.props.list.filter((item) => {
+        let foundItem = this.props.feed_history.list.filter((item) => {
           return item.id === this.props.location.pathname.substring(1);
         });
 
@@ -33,8 +34,8 @@ class Home extends Component {
         // opened as a new window, so path will be /,
         // so let's push the id of the last selected item to the url
 
-        let foundItem = this.props.list.filter((item) => {
-          return item.id === this.props.active;
+        let foundItem = this.props.feed_history.list.filter((item) => {
+          return item.id === this.props.feed_history.active;
         });
 
         if (foundItem.length) {
@@ -54,7 +55,7 @@ class Home extends Component {
   */
   componentWillReceiveProps(nextProps) {
     if (this.props.location !== nextProps.location) {
-      let foundItem = nextProps.list.filter((item) => {
+      let foundItem = nextProps.feed_history.list.filter((item) => {
         return item.id === nextProps.location.pathname.substring(1);
       });
 
@@ -94,7 +95,7 @@ class Home extends Component {
           {this.state.title && (this.state.data.length < 1) ? (
             <p>No matches found...</p>
           ) : (
-            <Article articles={this.state.data} />
+            <ArticleList articles={this.state.data} />
           ) }
         </div>
       </div>
@@ -102,10 +103,17 @@ class Home extends Component {
   }
 }
 
+Home.propTypes = {
+  feed_history: PropTypes.shape({
+    list: PropTypes.array.isRequired,
+    active: PropTypes.string.isRequired
+  }).isRequired,
+  updateActive: PropTypes.func.isRequired
+};
+
 const mapStateToProps = (state) => {
   return {
-    list: state.history.list,
-    active: state.history.active
+    feed_history: state.history
   };
 }
 

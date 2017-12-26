@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
 import ArticleItem from './ArticleItem';
 
-class Article extends React.Component {
+class ArticleList extends React.Component {
   render() {
     return (
       <div>
@@ -16,4 +17,9 @@ class Article extends React.Component {
     );
   }
 }
-export default Article;
+
+ArticleList.propTypes = {
+  articles: PropTypes.array.isRequired
+};
+
+export default ArticleList;

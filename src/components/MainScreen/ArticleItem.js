@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class ArticleItem extends React.Component {
@@ -27,5 +28,13 @@ class ArticleItem extends React.Component {
     );
   }
 }
+
+ArticleItem.propTypes = {
+  article: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default ArticleItem;
